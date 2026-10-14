@@ -1,0 +1,77 @@
+﻿<Window x:Class="iotcommender.MainWindow"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:iotcommender"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
+
+    <Grid Margin="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- TOP -->
+        <StackPanel
+            Grid.Row="0"
+            Orientation="Horizontal">
+
+            <Button
+                Content="Connect Gateway"
+                Command="{Binding ConnectCommand}"
+                Padding="15,8"
+                Margin="0,0,30,0"/>
+
+            <TextBlock
+                Text="Live Temp:"
+                FontSize="24"
+                VerticalAlignment="Center"/>
+
+            <TextBlock
+                Text="{Binding Temperature, StringFormat={}{0:F1} °C}"
+                FontSize="28"
+                FontWeight="Bold"
+                Margin="10,0,0,0"
+                VerticalAlignment="Center"/>
+
+        </StackPanel>
+
+        <!-- MIDDLE -->
+        <ProgressBar
+            Grid.Row="1"
+            Height="25"
+            Margin="0,20,0,20"
+            IsIndeterminate="{Binding IsConnected}" HorizontalAlignment="Right" Width="760"/>
+
+        <!-- BOTTOM -->
+        <DataGrid
+            Grid.Row="2"
+            ItemsSource="{Binding Readings}"
+            AutoGenerateColumns="False" Margin="0,10,0,-10">
+
+            <DataGrid.Columns>
+
+                <DataGridTextColumn
+                    Header="Sensor ID"
+                    Binding="{Binding SensorId}"/>
+
+                <DataGridTextColumn
+                    Header="Temperature"
+                    Binding="{Binding Temperature, StringFormat={}{0:F1} °C}"/>
+
+                <DataGridTextColumn
+                    Header="Time"
+                    Binding="{Binding Timestamp}"/>
+
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+    </Grid>
+
+</Window>
